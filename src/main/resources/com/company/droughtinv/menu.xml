@@ -5,13 +5,13 @@
         <item view="User.list" title="msg://com.company.droughtinv.view.user/UserListView.title"/>
         <item view="Productos.list" title="msg://com.company.droughtinv.view.productos/productosListView.title"/>
         <item view="Categorias.list" title="msg://com.company.droughtinv.view.categorias/categoriasListView.title"/>
-        <item view="Proveedor.list" title="msg://com.company.droughtinv.view.proveedor/proveedorListView.title"/>
+        <item view="Proveedor.list" title="Proveedores"/>
         <item view="Sucursal.list" title="msg://com.company.droughtinv.view.sucursal/sucursalListView.title"/>
         <item view="Cliente.list" title="msg://com.company.droughtinv.view.cliente/clienteListView.title"/>
         <item view="FichasRegistroInventarios.list"
               title="msg://com.company.droughtinv.view.fichasregistroinventarios/fichasRegistroInventariosListView.title"/>
         <item view="Lotes.list" title="msg://com.company.droughtinv.view.lotes/lotesListView.title"/>
-        <item view="Movimientos.list" title="msg://com.company.droughtinv.view.movimientos/movimientosListView.title"/>
+        <item view="Movimientos.list" title="Movimientos"/>
         <item view="EstadosAlerta.list"
               title="msg://com.company.droughtinv.view.estadosalerta/estadosAlertaListView.title"/>
     </menu>
