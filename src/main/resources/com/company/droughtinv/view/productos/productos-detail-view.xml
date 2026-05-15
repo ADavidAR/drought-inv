@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://productosDetailView.title"
+      focusComponent="form">
+    <data>
+        <instance id="productosDc"
+                  class="com.company.droughtinv.entity.Productos">
+            <fetchPlan extends="_base">
+                <property name="categoria" fetchPlan="_base"/>
+                <property name="proveedor" fetchPlan="_instance_name">
+                    <property name="nombre"/>
+                </property>
+            </fetchPlan>
+            <loader id="productosDl"/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <actions>
+        <action id="saveCloseAction" type="detail_saveClose"/>
+        <action id="closeAction" type="detail_close"/>
+    </actions>
+    <layout>
+        <formLayout id="form" dataContainer="productosDc">
+            <responsiveSteps>
+                <responsiveStep minWidth="0" columns="1"/>
+                <responsiveStep minWidth="40em" columns="2"/>
+            </responsiveSteps>
+            <textField id="nombreField" property="nombre"/>
+            <textArea id="descripcionField" height="9.5em" property="descripcion"/>
+            <datePicker id="fechaCaducacionField" property="fechaCaducacion"/>
+            <textField id="precioField" property="precio"/>
+            <textField id="costoField" property="costo"/>
+            <entityPicker id="categoriaField" property="categoria">
+                <actions>
+                    <action id="entityLookupAction" type="entity_lookup"/>
+                    <action id="entityClearAction" type="entity_clear"/>
+                </actions>
+            </entityPicker>
+            <entityPicker id="proveedorField" property="proveedor">
+                <actions>
+                    <action id="entityLookupAction" type="entity_lookup"/>
+                    <action id="entityClearAction" type="entity_clear"/>
+                </actions>
+            </entityPicker>
+        </formLayout>
+        <hbox id="detailActions">
+            <button id="saveAndCloseButton" action="saveCloseAction"/>
+            <button id="closeButton" action="closeAction"/>
+        </hbox>
+    </layout>
+</view>

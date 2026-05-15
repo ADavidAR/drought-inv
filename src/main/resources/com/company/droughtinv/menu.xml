@@ -3,6 +3,10 @@
 
     <menu id="application" title="msg://com.company.droughtinv/menu.application.title" opened="true">
         <item view="User.list" title="msg://com.company.droughtinv.view.user/UserListView.title"/>
+        <item view="Productos.list" title="msg://com.company.droughtinv.view.productos/productosListView.title"/>
+        <item view="Categorias.list" title="msg://com.company.droughtinv.view.categorias/categoriasListView.title"/>
+        <item view="Proveedor.list" title="msg://com.company.droughtinv.view.proveedor/proveedorListView.title"/>
+        <item view="Sucursal.list" title="msg://com.company.droughtinv.view.sucursal/sucursalListView.title"/>
     </menu>
 
 </menu-config>
