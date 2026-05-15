@@ -2,10 +2,10 @@ package com.company.droughtinv.entity;
 
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
 import io.jmix.core.metamodel.annotation.JmixEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.UUID;
 
@@ -18,10 +18,15 @@ public class Movimientos {
     @Id
     private UUID id;
 
-    @Column(name = "DESCRIPCION")
+    @Lob
+    @NotNull
+    @Column(name = "DESCRIPCION", nullable = false)
     private String descripcion;
 
-    @Column(name = "FACTOR")
+    @Max(1)
+    @Min(-1)
+    @NotNull
+    @Column(name = "FACTOR", nullable = false)
     private Integer factor;
 
     public Integer getFactor() {

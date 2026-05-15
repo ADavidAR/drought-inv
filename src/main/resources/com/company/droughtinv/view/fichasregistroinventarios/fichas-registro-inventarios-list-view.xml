@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
+      title="msg://fichasRegistroInventariosListView.title"
+      focusComponent="fichasRegistroInventariosesDataGrid">
+    <data>
+        <collection id="fichasRegistroInventariosesDc"
+                    class="com.company.droughtinv.entity.FichasRegistroInventarios">
+            <fetchPlan extends="_base">
+                <property name="lote" fetchPlan="_instance_name"/>
+                <property name="sucursal" fetchPlan="_instance_name">
+                    <property name="nombre"/>
+                </property>
+                <property name="cliente" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader id="fichasRegistroInventariosesDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from FichasRegistroInventarios e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <urlQueryParameters>
+            <pagination component="pagination"/>
+        </urlQueryParameters>
+    </facets>
+    <actions>
+        <action id="selectAction" type="lookup_select"/>
+        <action id="discardAction" type="lookup_discard"/>
+    </actions>
+    <layout>
+        <hbox id="buttonsPanel" classNames="buttons-panel">
+            <startSlot>
+                <button id="createButton" action="fichasRegistroInventariosesDataGrid.createAction"/>
+                <button id="editButton" action="fichasRegistroInventariosesDataGrid.editAction"/>
+                <button id="refreshButton" action="fichasRegistroInventariosesDataGrid.refreshAction"/>
+                <button id="removeButton" action="fichasRegistroInventariosesDataGrid.removeAction"/>
+            </startSlot>
+            <endSlot>
+                <simplePagination id="pagination" dataLoader="fichasRegistroInventariosesDl"/>
+            </endSlot>
+        </hbox>
+        <dataGrid id="fichasRegistroInventariosesDataGrid"
+                  width="100%"
+                  minHeight="20em"
+                  dataContainer="fichasRegistroInventariosesDc"
+                  columnReorderingAllowed="true">
+            <actions>
+                <action id="createAction" type="list_create"/>
+                <action id="editAction" type="list_edit"/>
+                <action id="refreshAction" type="list_refresh"/>
+                <action id="removeAction" type="list_remove"/>
+            </actions>
+            <columns resizable="true">
+                <column property="fechaMovimiento"/>
+                <column property="cantidadStock"/>
+                <column property="lote"/>
+                <column property="sucursal"/>
+                <column property="cliente"/>
+            </columns>
+        </dataGrid>
+        <hbox id="lookupActions" visible="false">
+            <button id="selectButton" action="selectAction"/>
+            <button id="discardButton" action="discardAction"/>
+        </hbox>
+    </layout>
+</view>

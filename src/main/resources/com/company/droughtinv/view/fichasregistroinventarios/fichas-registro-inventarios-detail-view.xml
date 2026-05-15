@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://fichasRegistroInventariosDetailView.title"
+      focusComponent="form">
+    <data>
+        <instance id="fichasRegistroInventariosDc"
+                  class="com.company.droughtinv.entity.FichasRegistroInventarios">
+            <fetchPlan extends="_base">
+                <property name="lote" fetchPlan="_instance_name"/>
+                <property name="sucursal" fetchPlan="_instance_name">
+                    <property name="nombre"/>
+                </property>
+                <property name="cliente" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader id="fichasRegistroInventariosDl"/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <actions>
+        <action id="saveCloseAction" type="detail_saveClose"/>
+        <action id="closeAction" type="detail_close"/>
+    </actions>
+    <layout>
+        <formLayout id="form" dataContainer="fichasRegistroInventariosDc">
+            <responsiveSteps>
+                <responsiveStep minWidth="0" columns="1"/>
+                <responsiveStep minWidth="40em" columns="2"/>
+            </responsiveSteps>
+            <dateTimePicker id="fechaMovimientoField" property="fechaMovimiento"/>
+            <textField id="cantidadStockField" property="cantidadStock"/>
+            <entityPicker id="loteField" property="lote">
+                <actions>
+                    <action id="entityLookupAction" type="entity_lookup"/>
+                    <action id="entityClearAction" type="entity_clear"/>
+                </actions>
+            </entityPicker>
+            <entityPicker id="sucursalField" property="sucursal">
+                <actions>
+                    <action id="entityLookupAction" type="entity_lookup"/>
+                    <action id="entityClearAction" type="entity_clear"/>
+                </actions>
+            </entityPicker>
+            <entityPicker id="clienteField" property="cliente">
+                <actions>
+                    <action id="entityLookupAction" type="entity_lookup"/>
+                    <action id="entityClearAction" type="entity_clear"/>
+                </actions>
+            </entityPicker>
+        </formLayout>
+        <hbox id="detailActions">
+            <button id="saveAndCloseButton" action="saveCloseAction"/>
+            <button id="closeButton" action="closeAction"/>
+        </hbox>
+    </layout>
+</view>

@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1" author="drought-inv">
+        <createTable tableName="CLIENTE">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_CLIENTE"/>
+            </column>
+            <column name="NOMBRE" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="2" author="drought-inv">
+        <createTable tableName="FICHAS_REGISTRO_INVENTARIOS">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_FICHAS_REGISTRO_INVENTARIOS"/>
+            </column>
+            <column name="FECHA_MOVIMIENTO" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CANTIDAD_STOCK" type="DECIMAL(19)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LOTE_ID" type="UUID"/>
+            <column name="SUCURSAL_ID" type="UUID"/>
+            <column name="CLIENTE_ID" type="UUID"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="3" author="drought-inv">
+        <createTable tableName="LOTES">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_LOTES"/>
+            </column>
+            <column name="PRODUCTO_ID" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PROVEEDOR_ID" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FECHA_ELABORACION" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FECHA_CADUCIDAD" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="4" author="drought-inv">
+        <createTable tableName="MOVIMIENTOS">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_MOVIMIENTOS"/>
+            </column>
+            <column name="DESCRIPCION" type="CLOB">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FACTOR" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="5" author="drought-inv">
+        <createTable tableName="PRODUCTOS">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_PRODUCTOS"/>
+            </column>
+            <column name="NOMBRE" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DESCRIPCION" type="CLOB">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FECHA_CADUCACION" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PRECIO" type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="COSTO" type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CATEGORIA_ID" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PROVEEDOR_ID" type="UUID"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="6" author="drought-inv">
+        <createTable tableName="PROVEEDOR">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_PROVEEDOR"/>
+            </column>
+            <column name="NOMBRE" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TELEFONO" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CORREO" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="7" author="drought-inv">
+        <createTable tableName="SUCURSAL">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_SUCURSAL"/>
+            </column>
+            <column name="NOMBRE" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TELEFONO" type="VARCHAR(255)"/>
+            <column name="DIRECCION" type="CLOB">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="8" author="drought-inv">
+        <createIndex indexName="IDX_FICHAS_REGISTRO_INVENTARIOS_CLIENTE" tableName="FICHAS_REGISTRO_INVENTARIOS">
+            <column name="CLIENTE_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="CLIENTE_ID" baseTableName="FICHAS_REGISTRO_INVENTARIOS"
+                                 constraintName="FK_FICHAS_REGISTRO_INVENTARIOS_ON_CLIENTE" referencedColumnNames="ID"
+                                 referencedTableName="CLIENTE"/>
+    </changeSet>
+    <changeSet id="9" author="drought-inv">
+        <createIndex indexName="IDX_FICHAS_REGISTRO_INVENTARIOS_LOTE" tableName="FICHAS_REGISTRO_INVENTARIOS">
+            <column name="LOTE_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="LOTE_ID" baseTableName="FICHAS_REGISTRO_INVENTARIOS"
+                                 constraintName="FK_FICHAS_REGISTRO_INVENTARIOS_ON_LOTE" referencedColumnNames="ID"
+                                 referencedTableName="LOTES"/>
+    </changeSet>
+    <changeSet id="10" author="drought-inv">
+        <createIndex indexName="IDX_FICHAS_REGISTRO_INVENTARIOS_SUCURSAL" tableName="FICHAS_REGISTRO_INVENTARIOS">
+            <column name="SUCURSAL_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="SUCURSAL_ID" baseTableName="FICHAS_REGISTRO_INVENTARIOS"
+                                 constraintName="FK_FICHAS_REGISTRO_INVENTARIOS_ON_SUCURSAL" referencedColumnNames="ID"
+                                 referencedTableName="SUCURSAL"/>
+    </changeSet>
+    <changeSet id="11" author="drought-inv">
+        <createIndex indexName="IDX_LOTES_PRODUCTO" tableName="LOTES">
+            <column name="PRODUCTO_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="PRODUCTO_ID" baseTableName="LOTES"
+                                 constraintName="FK_LOTES_ON_PRODUCTO" referencedColumnNames="ID"
+                                 referencedTableName="PRODUCTOS"/>
+    </changeSet>
+    <changeSet id="12" author="drought-inv">
+        <createIndex indexName="IDX_LOTES_PROVEEDOR" tableName="LOTES">
+            <column name="PROVEEDOR_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="PROVEEDOR_ID" baseTableName="LOTES"
+                                 constraintName="FK_LOTES_ON_PROVEEDOR" referencedColumnNames="ID"
+                                 referencedTableName="PROVEEDOR"/>
+    </changeSet>
+    <changeSet id="13" author="drought-inv">
+        <createIndex indexName="IDX_PRODUCTOS_CATEGORIA" tableName="PRODUCTOS">
+            <column name="CATEGORIA_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="CATEGORIA_ID" baseTableName="PRODUCTOS"
+                                 constraintName="FK_PRODUCTOS_ON_CATEGORIA" referencedColumnNames="ID"
+                                 referencedTableName="CATEGORIAS"/>
+    </changeSet>
+    <changeSet id="14" author="drought-inv">
+        <createIndex indexName="IDX_PRODUCTOS_PROVEEDOR" tableName="PRODUCTOS">
+            <column name="PROVEEDOR_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="PROVEEDOR_ID" baseTableName="PRODUCTOS"
+                                 constraintName="FK_PRODUCTOS_ON_PROVEEDOR" referencedColumnNames="ID"
+                                 referencedTableName="PROVEEDOR"/>
+    </changeSet>
+</databaseChangeLog>
